@@ -1,0 +1,87 @@
+#:kivy 1.11.1
+# Тут нарисуем наш шарик, называем этот объект точно также как и класс в коде
+<PongBall>:
+    size: 45, 45
+    canvas:
+        Color:
+            rgb:   
+        Ellipse:
+            source:'hh.jpg' 
+            pos: self.pos
+            size: self.size 
+    
+# Тут нарисуем панельку игрока, называем этот объект точно также как и класс в коде
+<PongPaddle>:
+    size: 25, 150
+    canvas:
+        Color: 
+            rgb :  
+        RoundedRectangle:
+            source:'gr.jpg'
+            pos: self.pos
+            size: self.size
+            radius: [12]
+# А это игровое поле =)
+<PongGame>:
+    ## тут привязываем шарик к свойству ball
+    ball: pong_ball
+    player1: player_left
+    player2: player_right
+ 
+    canvas:
+        Color:
+            rgb :  
+        Rectangle:
+            source:'fon.jpg'
+            ## Бордюр посередине
+            pos: self.center_x - 5, 0
+            size: 10, self.height
+ 
+    Label:       
+        ## Очки игрока слева
+        font_size: 70
+        center_x: root.width / 4
+        top: root.top - 25
+        text: str(root.player1.score) 
+        color: 9, 180, 189
+        
+    Label:
+        ## Очки игрока справа
+        font_size: 70
+        center_x: root.width * 3 / 4
+        top: root.top - 25
+        text: str(root.player2.score)
+        color: 0.19, 0.54, 0.94
+ 
+    ## а тут создаем экземпляр нашего шарика в игровом поле
+    PongBall:
+        id: pong_ball
+        center: self.parent.center
+ 
+    ## создаем игрока 1
+    PongPaddle:
+        id: player_left
+        x: root.x
+        center_y: root.center_y
+ 
+    ## создаем игрока 2
+    PongPaddle:
+        id: player_right
+        x: root.width - self.width
+        center_y: root.center_y
+
+    Button:
+        size: 50, 50
+        font_size: 10
+        center_x: root.width * 2 / 5
+        top: root.top -0
+        background_normal:'home.jpg'
+        background_down: 
+        color: 50, 50, 50
+        id:btnExit
+        on_press: app.stop()
+
+ 
+
+
+    
